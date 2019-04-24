@@ -95,7 +95,7 @@ public class EnrollmentFile {
 	}
 	
 	/**
-	 * Return all distinct values for a given column is the csv file.
+	 * Return all distinct values for a given column in the csv file.
 	 * 
 	 * @param column - the column to get values from
 	 * @return a set of values with no duplicates
