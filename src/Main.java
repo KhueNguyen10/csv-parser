@@ -18,11 +18,16 @@ public class Main {
 		Set<String> insuranceCompanies = 
 				data.getDistinctValues(EnrollmentFile.Column.INSURANCE_COMPANY);
 		
+		EnrollmentFile.Column[] sortBy = new EnrollmentFile.Column[] {
+				EnrollmentFile.Column.LAST_NAME,
+				EnrollmentFile.Column.FIRST_NAME
+		};
+		
 		for (String insuranceCompany : insuranceCompanies) {
 			String fileName = insuranceCompany + ".csv"; // csv file to write to
 			
-			List<Enrollee> enrollees = 
-					data.getEnrolleesBy(EnrollmentFile.Column.INSURANCE_COMPANY, insuranceCompany);
+			List<Enrollee> enrollees = data.getEnrolleesBy(EnrollmentFile.Column.INSURANCE_COMPANY, 
+					insuranceCompany, sortBy, EnrollmentFile.SortDirection.ASCENDING);
 			
 			writeEnrolleesToFile(fileName, enrollees);
 		}
