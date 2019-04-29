@@ -13,21 +13,21 @@ public class Main {
 		
 		String inputFilePath = args[0];
 		CSVFile csv = new CSVFile(inputFilePath);
-		EnrollmentFile data = new EnrollmentFile(csv);
+		EnrollmentData data = new EnrollmentData(csv);
 		
 		Set<String> insuranceCompanies = 
-				data.getDistinctValues(EnrollmentFile.Column.INSURANCE_COMPANY);
+				data.getDistinctValues(EnrollmentData.Column.INSURANCE_COMPANY);
 		
-		EnrollmentFile.Column[] sortBy = new EnrollmentFile.Column[] {
-				EnrollmentFile.Column.LAST_NAME,
-				EnrollmentFile.Column.FIRST_NAME
+		EnrollmentData.Column[] sortBy = new EnrollmentData.Column[] {
+				EnrollmentData.Column.LAST_NAME,
+				EnrollmentData.Column.FIRST_NAME
 		};
 		
 		for (String insuranceCompany : insuranceCompanies) {
 			String fileName = insuranceCompany + ".csv"; // csv file to write to
 			
-			List<Enrollee> enrollees = data.getEnrolleesBy(EnrollmentFile.Column.INSURANCE_COMPANY, 
-					insuranceCompany, sortBy, EnrollmentFile.SortDirection.ASCENDING);
+			List<Enrollee> enrollees = data.getEnrolleesBy(EnrollmentData.Column.INSURANCE_COMPANY, 
+					insuranceCompany, sortBy, EnrollmentData.SortDirection.ASCENDING);
 			
 			writeEnrolleesToFile(fileName, enrollees);
 		}

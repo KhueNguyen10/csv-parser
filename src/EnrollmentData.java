@@ -9,7 +9,7 @@ import java.util.Set;
  * @author nkhue
  *
  */
-public class EnrollmentFile {
+public class EnrollmentData {
 	
 	public enum Column {
 		USER_ID, LAST_NAME, FIRST_NAME, VERSION, INSURANCE_COMPANY
@@ -21,7 +21,7 @@ public class EnrollmentFile {
 	
 	private CSVFile csv; // The csv file to read from
 	
-	public EnrollmentFile(CSVFile csv) {
+	public EnrollmentData(CSVFile csv) {
 		this.csv = csv;
 	}
 	
