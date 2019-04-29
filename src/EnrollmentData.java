@@ -46,9 +46,11 @@ public class EnrollmentData {
 		for (String[] record : records) {
 			
 			Enrollee newEnrollee = new Enrollee(record);
+			String userId = newEnrollee.getUserId();
+			String insuranceCompany = newEnrollee.getInsuranceCompany();
 			int existingIndex; // Location of existing enrollee
 			
-			if ((existingIndex = findExisting(newEnrollee, enrollees)) >= 0) {
+			if ((existingIndex = findExisting(userId, insuranceCompany, enrollees)) >= 0) {
 				
 				// New enrollee already exist, replace the existing enrollee if it has lower version
 				if (newEnrollee.getVersion() > enrollees.get(existingIndex).getVersion()) {
@@ -127,21 +129,20 @@ public class EnrollmentData {
 	}
 	
 	/**
-	 * Find the existing enrollee in a list of enrollees.
-	 * Two enrollees are considered duplicates if they have the same
-	 * User ID and Insurance Company.
+	 * Find the existing enrollee in a list of enrollees that has the given User Id and Insurance Company.
 	 * 
-	 * @param targetEnrollee - the enrollee to check for duplicate
-	 * @param enrollees - the list to check for duplicate
-	 * @return the index location of duplicate or -1 if no duplicate found
+	 * @param userId 
+	 * @param insuranceCompany
+	 * @param enrollees - list of enrollees to be checked for existing
+	 * @return the index location of existing enrollee or -1 if no existing enrollee found
 	 */
-	private int findExisting(Enrollee targetEnrollee, List<Enrollee> enrollees) {
+	private int findExisting(String userId, String insuranceCompany, List<Enrollee> enrollees) {
 		
 		int existingIndex = -1;
 		
 		for (int i = 0; i < enrollees.size(); i++) {
-			if (targetEnrollee.getUserId().equals(enrollees.get(i).getUserId()) &&
-					targetEnrollee.getInsuranceCompany().equals(enrollees.get(i).getInsuranceCompany())) {
+			if (userId.equals(enrollees.get(i).getUserId()) &&
+					insuranceCompany.equals(enrollees.get(i).getInsuranceCompany())) {
 				existingIndex = i;
 				break; // There can only be one existing, break once found
 			}
