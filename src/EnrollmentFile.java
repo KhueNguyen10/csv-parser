@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
@@ -56,14 +57,16 @@ public class EnrollmentFile {
 		}
 		
 		// Sort by last name, then first name, in ascending order
-		enrollees.sort((Enrollee e1, Enrollee e2) -> {
+		Comparator<Enrollee> comparator = (Enrollee e1, Enrollee e2) -> {
 			int lastNameComparison = e1.getLastName().compareTo(e2.getLastName());
 			if (lastNameComparison == 0) {
 				return e1.getFirstName().compareTo(e2.getFirstName());
 			} else {
 				return lastNameComparison;
 			}
-		});
+		};
+		
+		enrollees.sort(comparator);
 		
 		return enrollees;
 		
